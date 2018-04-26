@@ -6,7 +6,11 @@ main();
 async function main() {
 	try {
 		const orbitdb = new OrbitDB(ipfsapi('127.0.0.1', 5001));
-		const kvs = await orbitdb.kvstore('mynamespace');
+		const access = {
+			// Give write access to everyone
+			write: ['*'],
+		}
+		const kvs = await orbitdb.kvstore('mynamespace', access);
 		let hash;
 		let counter = 0;
 		const wait = setInterval(async () => {
