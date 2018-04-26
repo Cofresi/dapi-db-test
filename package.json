@@ -1,0 +1,8 @@
+{
+  "name": "dapi-db-test",
+  "version": "0.0.1",
+  "dependencies": {
+    "ipfs-api": "^20.0.1",
+    "orbit-db": "git+ssh://git@github.com/Cofresi/orbit-db"
+  }
+}
