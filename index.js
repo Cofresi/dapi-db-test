@@ -14,7 +14,11 @@ async function main() {
 			// Give write access to everyone
 			write: ['*'],
 		}
-		const kvs = await orbitdb.kvstore('mynamespace', access);
+		const db = await orbitdb.kvstore('mynamespace', access);
+		db.events.on('replicated', () => {
+			const result = db.iterator({ limit: -1 }).collect().map(e => e.payload.value)
+			console.log(result.join('\n'))
+		});
 		if(isActive) {
 			let hash;
 			let counter = 0;
@@ -23,7 +27,7 @@ async function main() {
 					clearInterval(wait);
 				}
 				else {
-					hash = await kvs.set(`hello ${counter}`, { name: `World ${counter}`});
+					hash = await db.put(`hello ${counter}`, { name: `World ${counter}`});
 					console.log('hash', hash);
 					counter+=1;
 				}
