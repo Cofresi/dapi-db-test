@@ -17,7 +17,7 @@ async function main() {
 		const db = await orbitdb.kvstore('mynamespace', access);
 		db.events.on('replicated', (address) => {
 			console.log('address', address);
-			console.log('db', db.get);
+			console.log('db', db.get('hello0'));
 		});
 		if(isActive) {
 			let hash;
