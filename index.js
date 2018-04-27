@@ -6,7 +6,7 @@ main();
 
 async function main() {
 	try {
-		const opts={ boolean : true }
+		const opts= { boolean : true };
 		const argv = parseArgs(process.argv.slice(2), opts);
 		const isActive = Boolean(argv.true);
 		const orbitdb = new OrbitDB(ipfsapi('127.0.0.1', 5001));
@@ -16,8 +16,7 @@ async function main() {
 		}
 		const db = await orbitdb.kvstore('mynamespace', access);
 		db.events.on('replicated', () => {
-			const result = db.iterator({ limit: -1 }).collect().map(e => e.payload.value)
-			console.log(result.join('\n'))
+			console.log(e.payload.value);
 		});
 		if(isActive) {
 			let hash;
