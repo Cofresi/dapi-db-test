@@ -18,10 +18,13 @@ async function main() {
 		db.events.on('replicated', (address) => {
 			console.log('address', address);
 		});
-		db.events.on('write', (dbname, hash, entry) => {
-			console.log('dbname', dbname);
-			console.log('hash', hash);
+		db.events.on('replicate.progress', (address, hash, entry, progress, have) => {
 			console.log('entry', entry);
+			console.log('progress', progress);
+			console.log('have', have);
+		});
+		db.events.on('write', (dbname, hash, entry) => {
+			console.log('payload', entry.payload);
 		});
 		if(isActive) {
 			let hash;
