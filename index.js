@@ -15,7 +15,7 @@ async function main() {
 			write: ['*'],
 		}
 		const db = await orbitdb.kvstore('mynamespace', access);
-		db.events.on('replicated', () => {
+		db.events.on('replicated', (e) => {
 			console.log(e.payload.value);
 		});
 		if(isActive) {
