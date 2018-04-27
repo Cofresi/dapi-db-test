@@ -17,14 +17,9 @@ async function main() {
 		const db = await orbitdb.kvstore('mynamespace', access);
 		db.events.on('replicated', (address) => {
 			console.log('address', address);
-		});
-		db.events.on('replicate.progress', (address, hash, entry, progress, have) => {
-			console.log('entry', entry);
-			console.log('progress', progress);
-			console.log('have', have);
-		});
-		db.events.on('write', (dbname, hash, entry) => {
-			console.log('payload', entry.payload);
+			const res = db.get('hello0')
+				.map((e) => e.payload.value);
+				console.log('res', res);
 		});
 		if(isActive) {
 			let hash;
@@ -34,7 +29,7 @@ async function main() {
 					clearInterval(wait);
 				}
 				else {
-					hash = await db.put(`hello ${counter}`, { name: `World ${counter}`});
+					hash = await db.put(`hello${counter}`, { name: `World ${counter}`});
 					console.log('hash', hash);
 					counter+=1;
 				}
